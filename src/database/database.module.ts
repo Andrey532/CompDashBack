@@ -23,4 +23,4 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   ],
   exports: [ConfigModule, TypeOrmModule],
 })
-export class DatabaseConfigureModule {}
+export class DatabaseConfig {}
