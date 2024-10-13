@@ -35,6 +35,9 @@ export class Company {
     @Column({ nullable: false })
     capital: number
 
+    @Column({ nullable: false })
+    logo: string
+
     @Exclude()
     @ManyToOne(() => Auth, (auth) => auth.companies)
     auth: Auth;

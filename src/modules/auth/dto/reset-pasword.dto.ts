@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
     IsNotEmpty,
     IsString,
@@ -6,11 +7,13 @@ import {
 
 export class ResetPasswordDto {
 
+    @ApiProperty({example: "monolit", type: String})
     @IsString()
     @IsNotEmpty()
     @MinLength(7)
     oldPassword: string;
 
+    @ApiProperty({example: "svoboda", type: String})
     @IsString()
     @IsNotEmpty()
     @MinLength(7)
