@@ -35,7 +35,7 @@ export class Company {
     @Column({ nullable: false })
     capital: number
 
-    @Column({ nullable: false })
+    @Column({ nullable: true })
     logo: string
 
     @Exclude()
