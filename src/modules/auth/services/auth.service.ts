@@ -15,6 +15,7 @@ import { RefreshTokensDto } from '../dto/refresh-token.dto';
 import { ResetPasswordDto } from '../dto/reset-pasword.dto';
 import { LogoutService } from './logout.service';
 import { TokenService } from './token.service';
+import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class AuthService {
@@ -121,7 +122,7 @@ export class AuthService {
     }
   }
 
-  async resetPassword({ oldPassword, newPassword }: ResetPasswordDto, token: string): Promise<{message: string}> {
+  async resetPassword({ oldPassword, newPassword }: ResetPasswordDto, token: string): Promise<{ message: string }> {
     const decodedToken: { sub: string } =
       await this.tokenService.decoder(token);
 
@@ -141,7 +142,7 @@ export class AuthService {
     if (!comparePassword) throw new UnauthorizedException('Incorrect password');
 
     const hashedPassword = await this.hashPassword(newPassword);
-    
+
     user.password = hashedPassword
 
     await this.authRepository.save(user);
@@ -150,4 +151,19 @@ export class AuthService {
       message: "Password has successfully changed"
     }
   }
+
+  async getUser(id: number): Promise<Auth> {
+    const user = await this.authRepository.findOne({
+      where: { id },
+      relations: ['companies'],
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+
+    return plainToClass(Auth, user);
+  }
+
 }

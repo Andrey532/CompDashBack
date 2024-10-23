@@ -5,6 +5,7 @@ import {
   Headers,
   HttpException,
   HttpStatus,
+  Param,
   Post,
   UseGuards,
 } from '@nestjs/common';
@@ -67,6 +68,13 @@ export class AuthController {
   resetPassword(@Body() resetPassword: ResetPasswordDto,
     @Headers('Authorization') token: string,): Promise<{ message: string }> {
     return this.authService.resetPassword(resetPassword, token)
+  }
+
+  @UseGuards(AuthGuard)
+  @Get(':id')
+  getUser(@Param('id') id: number) {
+    return this.authService.getUser(id)
+
   }
 }
 

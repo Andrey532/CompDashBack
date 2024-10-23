@@ -1,5 +1,4 @@
 import {
-    BadRequestException,
     Injectable,
     NotFoundException,
     UnauthorizedException,
@@ -63,7 +62,6 @@ export class AdminService {
 
         const user = await this.authRepository.findOne({
             where: { id: +decodedToken.sub },
-            // relations: ['companies'],
         });
 
         if (!user) {
