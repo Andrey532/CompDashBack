@@ -25,7 +25,7 @@
      ```
 
 5. **Starting the database:**
-   - If you are using Docker, start the database:
+   - Docker, start the database:
      ```
      docker-compose up -d
      ```
